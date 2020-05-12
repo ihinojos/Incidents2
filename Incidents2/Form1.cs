@@ -133,8 +133,7 @@ namespace Incidents2
             IList<IList<object>> values = response.Values;
             if(values != null && values.Count > 0)
             {
-                int val = int.Parse(values.ElementAt(values.Count - 1)[0].ToString());
-                return val;
+                return values.Count;
             }
             return 0;
         }
@@ -259,7 +258,7 @@ namespace Incidents2
             toSet.SetValue(reportDate.ToString("MMMM dd, yyyy"));
             form.FlattenFields();
             pdf.Close();
-            int rec = GetRecord() + 1;
+            int rec = GetRecord();
 
             string[] report = new string[10];
             report[0] = rec.ToString();
