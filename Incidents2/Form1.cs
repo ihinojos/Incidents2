@@ -13,11 +13,13 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace Incidents2
 {
@@ -122,7 +124,6 @@ namespace Incidents2
             appendRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
             var appendResponse = appendRequest.Execute();
             MessageBox.Show("Record saved.");
-
         }
 
         private int GetRecord()
@@ -273,18 +274,20 @@ namespace Incidents2
             report[9] = comments;
 
 
-            List<string> files = new List<string>();
-            files.Add(Path.Combine(Path.GetTempPath(), "gen_resource.pdf"));
-            if(addedImg)
+            List<string> files = new List<string>
+            {
+                Path.Combine(Path.GetTempPath(), "gen_resource.pdf")
+            };
+            if (addedImg)
                 files.Add(Path.Combine(Path.GetTempPath(), "images.pdf"));
             string finish = Path.Combine(Path.GetTempPath(), "finished.pdf");
 
             Merge(files, finish);
-
+            saveFile(finish);
             CreateEntry(report);
 
             addedImg = false;
-            System.Diagnostics.Process.Start(finish);
+
         }
 
         private string getReason()
@@ -379,7 +382,7 @@ namespace Incidents2
         {
             
             string[] images = getImages().ToArray();
-            string target = Path.Combine(System.IO.Path.GetTempPath(), "images.pdf");
+            string target = Path.Combine(Path.GetTempPath(), "images.pdf");
             iTextSharp.text.Document doc = new iTextSharp.text.Document();
             if (images.Length > 0)
             {
@@ -436,6 +439,46 @@ namespace Incidents2
                 {
                 }
             }
+        }
+
+        public void saveFile(string file)
+        {
+            // format to save file Cross_Type_Name_Truck_Date
+            var incidentDate = incident_date.Value.ToString("MM-dd-yyyy");
+            var employee = employee_name.Text;
+            var truck = truck_number.Text;
+            var kind = reportType_box.GetItemText(reportType_box.SelectedItem);
+
+            string filename = employee+"_"+kind+"_"+incidentDate;
+
+
+            string dest = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Incidents"), filename);
+
+            if(!Directory.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Incidents"))){
+                Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Incidents"));
+            }
+
+            File.Copy(file, IndexedFilename(dest, "pdf"));
+        }
+
+        string IndexedFilename(string stub, string extension)
+        {
+            int ix = 0;
+            string filename = null;
+            do
+            {
+                if (!File.Exists(String.Format("{0}.{1}", stub, extension)))
+                {
+                    return String.Format("{0}.{1}", stub, extension);
+
+                }
+                else
+                {
+                    ix++;
+                    filename = String.Format("{0} ({1}).{2}", stub, ix, extension);
+                }
+            } while (File.Exists(filename));
+            return filename;
         }
     }
 }
