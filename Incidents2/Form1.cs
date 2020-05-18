@@ -284,7 +284,7 @@ namespace Incidents2
 
             Merge(files, finish);
             saveFile(finish);
-            CreateEntry(report);
+            //CreateEntry(report);
 
             addedImg = false;
 
@@ -380,7 +380,6 @@ namespace Incidents2
 
         private void addImg_button_Click(object sender, EventArgs e)
         {
-            
             string[] images = getImages().ToArray();
             string target = Path.Combine(Path.GetTempPath(), "images.pdf");
             iTextSharp.text.Document doc = new iTextSharp.text.Document();
@@ -390,10 +389,27 @@ namespace Incidents2
                 {
                     iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(target, FileMode.Create));
                     doc.Open();
-                    for (int i = 0; i < images.Length; i++)
+                    foreach(var x in images)
                     {
-                        iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(images[i]);
-                        img.ScaleToFit(500f, 500f);
+                        iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(x);
+
+                        if (img.Height > img.Width)
+                        {
+                            //Maximum height is 800 pixels.
+                            float percentage = 700 / img.Height;
+                            img.ScalePercent(percentage * 100);
+                        }
+                        else
+                        {
+                            //Maximum width is 600 pixels.
+                            float percentage = 540 / img.Width;
+                            img.ScalePercent(percentage * 100);
+                        }
+
+                        img.Border = iTextSharp.text.Rectangle.BOX;
+                        img.BorderColor = iTextSharp.text.BaseColor.LIGHT_GRAY;
+                        img.BorderWidth = 1f;
+
                         doc.Add(img);
                     }
                 }
@@ -443,19 +459,16 @@ namespace Incidents2
 
         public void saveFile(string file)
         {
-            // format to save file Cross_Type_Name_Truck_Date
-            var incidentDate = incident_date.Value.ToString("MM-dd-yyyy");
+            var incidentDate = report_date.Value.ToString("MM-dd-yyyy");
             var employee = employee_name.Text;
-            var truck = truck_number.Text;
             var kind = reportType_box.GetItemText(reportType_box.SelectedItem);
 
             string filename = employee+"_"+kind+"_"+incidentDate;
+            string incFolder = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Incidents"));
+            string dest = Path.Combine(incFolder, filename); 
 
-
-            string dest = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Incidents"), filename);
-
-            if(!Directory.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Incidents"))){
-                Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Incidents"));
+            if(!Directory.Exists(incFolder)){
+                Directory.CreateDirectory(incFolder);
             }
 
             File.Copy(file, IndexedFilename(dest, "pdf"));
@@ -464,19 +477,12 @@ namespace Incidents2
         string IndexedFilename(string stub, string extension)
         {
             int ix = 0;
-            string filename = null;
+            string filename;
             do
             {
                 if (!File.Exists(String.Format("{0}.{1}", stub, extension)))
-                {
                     return String.Format("{0}.{1}", stub, extension);
-
-                }
-                else
-                {
-                    ix++;
-                    filename = String.Format("{0} ({1}).{2}", stub, ix, extension);
-                }
+                else filename = String.Format("{0} ({1}).{2}", stub, ++ix, extension);
             } while (File.Exists(filename));
             return filename;
         }
