@@ -42,6 +42,7 @@ namespace Incidents2
 
         private bool addedImg = false;
         private List<string> names = new List<string>();
+        private List<string> trucks = new List<string>();
 
         public Form1()
         {
@@ -61,19 +62,30 @@ namespace Incidents2
             });
 
             names = GetDriverNames();
+            trucks = GetTrucks();
 
             InitializeComponent();
 
-            AutoCompleteStringCollection source = new AutoCompleteStringCollection();
+            AutoCompleteStringCollection namesCollection = new AutoCompleteStringCollection();
+
+            AutoCompleteStringCollection truckCollection = new AutoCompleteStringCollection();
+
             foreach (var name in names)
             {
-                source.Add(name);
+                namesCollection.Add(name);
             }
 
-            employee_name.AutoCompleteCustomSource = source;
-            employee_name.AutoCompleteMode = AutoCompleteMode.Suggest;
-            employee_name.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            foreach (var truck in trucks)
+            {
+                truckCollection.Add(truck);
+            }
 
+            employee_name.AutoCompleteCustomSource = namesCollection;
+            truck_number.AutoCompleteCustomSource = truckCollection;
+            employee_name.AutoCompleteMode = AutoCompleteMode.Suggest;
+            truck_number.AutoCompleteMode = AutoCompleteMode.Suggest;
+            employee_name.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            truck_number.AutoCompleteSource = AutoCompleteSource.CustomSource;
             LoadCombo();
         }
 
@@ -102,6 +114,25 @@ namespace Incidents2
             var col = list.ToArray().Distinct();
             list.Clear();
             list.AddRange(col);
+            return list;
+        }
+
+        private List<string> GetTrucks()
+        {
+            List<string> list = new List<string>();
+            var range = $"{sheet}!C:C";
+            SpreadsheetsResource.ValuesResource.GetRequest request = service.Spreadsheets.Values.Get(SpreadsheetId, range);
+            var response = request.Execute();
+            IList<IList<object>> values = response.Values;
+            foreach(var row in values)
+            {
+                if(row.Count == 1)
+                {
+                    string val = row[0].ToString();
+                    val = val.Trim();
+                    list.Add(val);
+                }
+            }
             return list;
         }
 
@@ -326,7 +357,7 @@ namespace Incidents2
 
             Merge(files, finish);
             saveFile(finish);
-            //CreateEntry(report);
+            CreateEntry(report);
 
             addedImg = false;
 
