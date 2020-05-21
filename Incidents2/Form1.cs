@@ -25,6 +25,7 @@ namespace Incidents2
 {
     public partial class Form1 : Form
     {
+        
 
         static readonly string[] Scopes = { SheetsService.Scope.Spreadsheets };
         static readonly string ApplicationName = "Incidents";
@@ -40,11 +41,12 @@ namespace Incidents2
         static string[] report_types;
 
         private bool addedImg = false;
+        private List<string> names = new List<string>();
 
         public Form1()
         {
-
-            string resource = Path.Combine(System.IO.Path.GetTempPath(), "creds.json");
+            
+            string resource = Path.Combine(Path.GetTempPath(), "creds.json");
             File.WriteAllBytes(resource, Properties.Resources.credentials);
             GoogleCredential credential;
             using (var stream = new FileStream(resource, FileMode.Open, FileAccess.Read))
@@ -58,9 +60,40 @@ namespace Incidents2
                 ApplicationName = ApplicationName
             });
 
+            names = GetDriverNames();
+
             InitializeComponent();
+
+            AutoCompleteStringCollection source = new AutoCompleteStringCollection();
+            foreach(var name in names)
+            {
+                source.Add(name);
+            }
+
+            employee_name.AutoCompleteCustomSource = source;
+            employee_name.AutoCompleteMode = AutoCompleteMode.Suggest;
+            employee_name.AutoCompleteSource = AutoCompleteSource.CustomSource;
             
             LoadCombo();
+        }
+
+        private List<string> GetDriverNames()
+        {
+            List<string> list = new List<string>();
+            var range = $"{sheet}!B:B";
+            SpreadsheetsResource.ValuesResource.GetRequest request = service.Spreadsheets.Values.Get(SpreadsheetId, range);
+            var response = request.Execute();
+            IList<IList<object>> values = response.Values;
+            foreach(var row in values)
+            {
+                var val = row[0].ToString();
+                val = val.Trim();
+                list.Add(val);
+            }
+            var col = list.ToArray().Distinct();
+            list.Clear();
+            list.AddRange(col);
+            return list;
         }
 
         private void LoadCombo()
