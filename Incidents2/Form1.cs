@@ -25,7 +25,7 @@ namespace Incidents2
 {
     public partial class Form1 : Form
     {
-        
+
 
         static readonly string[] Scopes = { SheetsService.Scope.Spreadsheets };
         static readonly string ApplicationName = "Incidents";
@@ -45,7 +45,7 @@ namespace Incidents2
 
         public Form1()
         {
-            
+
             string resource = Path.Combine(Path.GetTempPath(), "creds.json");
             File.WriteAllBytes(resource, Properties.Resources.credentials);
             GoogleCredential credential;
@@ -65,7 +65,7 @@ namespace Incidents2
             InitializeComponent();
 
             AutoCompleteStringCollection source = new AutoCompleteStringCollection();
-            foreach(var name in names)
+            foreach (var name in names)
             {
                 source.Add(name);
             }
@@ -73,7 +73,7 @@ namespace Incidents2
             employee_name.AutoCompleteCustomSource = source;
             employee_name.AutoCompleteMode = AutoCompleteMode.Suggest;
             employee_name.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            
+
             LoadCombo();
         }
 
@@ -84,11 +84,20 @@ namespace Incidents2
             SpreadsheetsResource.ValuesResource.GetRequest request = service.Spreadsheets.Values.Get(SpreadsheetId, range);
             var response = request.Execute();
             IList<IList<object>> values = response.Values;
-            foreach(var row in values)
+            foreach (var row in values)
             {
                 var val = row[0].ToString();
                 val = val.Trim();
-                list.Add(val);
+                string[] nam = val.Split(new char[] { ' ' });
+                if (nam.Length >= 2)
+                {
+                    string n1 = nam[0];
+                    string n2 = nam[1];
+                    n1 = (char.ToUpper(n1[0]) + n1.Substring(1));
+                    n2 = (char.ToUpper(n2[0]) + n2.Substring(1));
+
+                    list.Add(n1 + " " + n2);
+                }
             }
             var col = list.ToArray().Distinct();
             list.Clear();
@@ -114,7 +123,7 @@ namespace Incidents2
                 "Behavior - Declined Our Transportation After Calling in due to no Ride", "Behavior - Declining Loads", "Behavior - Not Answering Phone/Text", "Behavior - Not Reporting into Dispatch",
                 "Behavior - Not Washing Out as Instructed", "Documentation - Incorrect Manifest/Load Number", "Documentation - Reported Wrong Trailer Number", "Documentation - Reported Wrong Truck Number",
                 "Documentation -Incorrect Seals on Paperwork", "Documentation -Missing required Information on Receipts"};
-            report_types = new string[] {"Alert", "Incident" };
+            report_types = new string[] { "Alert", "Incident" };
 
 
             compliance_box1.Items.AddRange(compliance_issues);
@@ -165,7 +174,7 @@ namespace Incidents2
             SpreadsheetsResource.ValuesResource.GetRequest request = service.Spreadsheets.Values.Get(SpreadsheetId, range);
             var response = request.Execute();
             IList<IList<object>> values = response.Values;
-            if(values != null && values.Count > 0)
+            if (values != null && values.Count > 0)
             {
                 return values.Count;
             }
@@ -341,7 +350,7 @@ namespace Incidents2
 
             for (int i = 0; i < build.Length; i++)
             {
-                
+
                 if (!string.IsNullOrEmpty(build[i]))
                 {
                     if (i == build.Length - 1) ret += build[i];
@@ -422,7 +431,7 @@ namespace Incidents2
                 {
                     iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(target, FileMode.Create));
                     doc.Open();
-                    foreach(var x in images)
+                    foreach (var x in images)
                     {
                         iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(x);
 
@@ -453,7 +462,7 @@ namespace Incidents2
                 addedImg = true;
 
                 MessageBox.Show("Images added");
-            }  
+            }
 
         }
 
@@ -467,7 +476,8 @@ namespace Incidents2
             if (!toggleSwitch1.IsOn)
             {
                 this.BackColor = SystemColors.Control;
-            }else
+            }
+            else
             {
                 try
                 {
@@ -496,11 +506,12 @@ namespace Incidents2
             var employee = employee_name.Text;
             var kind = reportType_box.GetItemText(reportType_box.SelectedItem);
 
-            string filename = employee+"_"+kind+"_"+incidentDate;
+            string filename = employee + "_" + kind + "_" + incidentDate;
             string incFolder = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Incidents"));
-            string dest = Path.Combine(incFolder, filename); 
+            string dest = Path.Combine(incFolder, filename);
 
-            if(!Directory.Exists(incFolder)){
+            if (!Directory.Exists(incFolder))
+            {
                 Directory.CreateDirectory(incFolder);
             }
 
