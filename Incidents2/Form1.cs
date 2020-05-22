@@ -43,6 +43,7 @@ namespace Incidents2
         private bool addedImg = false;
         private List<string> names = new List<string>();
         private List<string> trucks = new List<string>();
+        private List<string> cities = new List<string>();
 
         public Form1()
         {
@@ -63,12 +64,15 @@ namespace Incidents2
 
             names = GetDriverNames();
             trucks = GetTrucks();
+            cities = GetCities();
 
             InitializeComponent();
 
             AutoCompleteStringCollection namesCollection = new AutoCompleteStringCollection();
 
             AutoCompleteStringCollection truckCollection = new AutoCompleteStringCollection();
+
+            AutoCompleteStringCollection citiesCollection = new AutoCompleteStringCollection();
 
             foreach (var name in names)
             {
@@ -80,13 +84,43 @@ namespace Incidents2
                 truckCollection.Add(truck);
             }
 
+            foreach(var city in cities)
+            {
+                citiesCollection.Add(city);
+            }
+
             employee_name.AutoCompleteCustomSource = namesCollection;
             truck_number.AutoCompleteCustomSource = truckCollection;
+            inc_location.AutoCompleteCustomSource = citiesCollection;
             employee_name.AutoCompleteMode = AutoCompleteMode.Suggest;
             truck_number.AutoCompleteMode = AutoCompleteMode.Suggest;
+            inc_location.AutoCompleteMode = AutoCompleteMode.Suggest;
             employee_name.AutoCompleteSource = AutoCompleteSource.CustomSource;
             truck_number.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            inc_location.AutoCompleteSource = AutoCompleteSource.CustomSource;
             LoadCombo();
+        }
+        private List<string> GetCities()
+        {
+            List<string> list = new List<string>();
+            string resource = Path.Combine(Path.GetTempPath(), "cities.csv");
+            File.WriteAllBytes(resource, Properties.Resources.us_cities_states_counties);
+            using (var rd = new StreamReader(resource))
+            {
+                while (!rd.EndOfStream)
+                {
+                    var split = rd.ReadLine().Split('|');
+                    try
+                    {
+                        var name = split[0] + ", " + split[1];
+                        list.Add(name);
+                    } catch
+                    {
+
+                    }
+                }
+            }
+            return list.Distinct().ToList();
         }
 
         private List<string> GetDriverNames()

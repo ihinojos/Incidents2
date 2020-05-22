@@ -89,5 +89,15 @@ namespace Incidents2.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] us_cities_states_counties {
+            get {
+                object obj = ResourceManager.GetObject("us_cities_states_counties", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

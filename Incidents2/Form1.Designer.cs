@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
             this.reportType_box = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -87,6 +88,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 9);
@@ -97,6 +99,7 @@
             // 
             // reportType_box
             // 
+            this.reportType_box.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.reportType_box.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.reportType_box.FormattingEnabled = true;
             this.reportType_box.Location = new System.Drawing.Point(83, 6);
@@ -107,6 +110,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(181, 9);
             this.label2.Name = "label2";
@@ -116,6 +120,7 @@
             // 
             // incident_date
             // 
+            this.incident_date.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.incident_date.CustomFormat = "dddd, MMM dd, yyyy";
             this.incident_date.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.incident_date.Location = new System.Drawing.Point(261, 6);
@@ -125,6 +130,7 @@
             // 
             // label3
             // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 36);
             this.label3.Name = "label3";
@@ -134,6 +140,7 @@
             // 
             // employee_name
             // 
+            this.employee_name.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.employee_name.Location = new System.Drawing.Point(103, 33);
             this.employee_name.Name = "employee_name";
             this.employee_name.Size = new System.Drawing.Size(150, 20);
@@ -141,6 +148,7 @@
             // 
             // inc_location
             // 
+            this.inc_location.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.inc_location.Location = new System.Drawing.Point(103, 59);
             this.inc_location.Name = "inc_location";
             this.inc_location.Size = new System.Drawing.Size(150, 20);
@@ -148,6 +156,7 @@
             // 
             // label4
             // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(12, 62);
             this.label4.Name = "label4";
@@ -157,6 +166,7 @@
             // 
             // label5
             // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(269, 36);
             this.label5.Name = "label5";
@@ -166,6 +176,7 @@
             // 
             // label6
             // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(268, 62);
             this.label6.Name = "label6";
@@ -175,6 +186,7 @@
             // 
             // truck_number
             // 
+            this.truck_number.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.truck_number.Location = new System.Drawing.Point(323, 33);
             this.truck_number.Name = "truck_number";
             this.truck_number.Size = new System.Drawing.Size(100, 20);
@@ -182,6 +194,7 @@
             // 
             // trailer_number
             // 
+            this.trailer_number.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.trailer_number.Location = new System.Drawing.Point(323, 59);
             this.trailer_number.Name = "trailer_number";
             this.trailer_number.Size = new System.Drawing.Size(100, 20);
@@ -189,6 +202,7 @@
             // 
             // warning_radio
             // 
+            this.warning_radio.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.warning_radio.AutoSize = true;
             this.warning_radio.Location = new System.Drawing.Point(15, 114);
             this.warning_radio.Name = "warning_radio";
@@ -200,6 +214,7 @@
             // 
             // warning2_radio
             // 
+            this.warning2_radio.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.warning2_radio.AutoSize = true;
             this.warning2_radio.Location = new System.Drawing.Point(147, 114);
             this.warning2_radio.Name = "warning2_radio";
@@ -211,6 +226,7 @@
             // 
             // penalty_radio
             // 
+            this.penalty_radio.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.penalty_radio.AutoSize = true;
             this.penalty_radio.Location = new System.Drawing.Point(300, 114);
             this.penalty_radio.Name = "penalty_radio";
@@ -223,6 +239,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupBox1.Controls.Add(this.compliance_box2);
             this.groupBox1.Controls.Add(this.compliance_box1);
             this.groupBox1.Location = new System.Drawing.Point(12, 166);
@@ -252,6 +269,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupBox2.Controls.Add(this.payroll_box2);
             this.groupBox2.Controls.Add(this.payroll_box1);
             this.groupBox2.Location = new System.Drawing.Point(12, 248);
@@ -281,6 +299,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupBox3.Controls.Add(this.maintenance_box2);
             this.groupBox3.Controls.Add(this.maintenance_box1);
             this.groupBox3.Location = new System.Drawing.Point(12, 335);
@@ -310,6 +329,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupBox4.Controls.Add(this.safety_box2);
             this.groupBox4.Controls.Add(this.safety_box1);
             this.groupBox4.Location = new System.Drawing.Point(12, 421);
@@ -339,6 +359,7 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupBox5.Controls.Add(this.behaviour_box2);
             this.groupBox5.Controls.Add(this.behaviour_box1);
             this.groupBox5.Location = new System.Drawing.Point(12, 503);
@@ -368,6 +389,7 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupBox6.Controls.Add(this.remarks);
             this.groupBox6.Location = new System.Drawing.Point(12, 585);
             this.groupBox6.Name = "groupBox6";
@@ -386,6 +408,7 @@
             // 
             // addImg_button
             // 
+            this.addImg_button.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.addImg_button.Location = new System.Drawing.Point(12, 681);
             this.addImg_button.Name = "addImg_button";
             this.addImg_button.Size = new System.Drawing.Size(75, 23);
@@ -396,6 +419,7 @@
             // 
             // viweImg_button
             // 
+            this.viweImg_button.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.viweImg_button.Location = new System.Drawing.Point(93, 681);
             this.viweImg_button.Name = "viweImg_button";
             this.viweImg_button.Size = new System.Drawing.Size(75, 23);
@@ -406,6 +430,7 @@
             // 
             // label7
             // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(215, 686);
             this.label7.Name = "label7";
@@ -415,6 +440,7 @@
             // 
             // deducted_amount
             // 
+            this.deducted_amount.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.deducted_amount.Enabled = false;
             this.deducted_amount.Location = new System.Drawing.Point(322, 683);
             this.deducted_amount.Name = "deducted_amount";
@@ -423,6 +449,7 @@
             // 
             // label8
             // 
+            this.label8.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(15, 713);
             this.label8.Name = "label8";
@@ -432,6 +459,7 @@
             // 
             // reporter_name
             // 
+            this.reporter_name.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.reporter_name.Location = new System.Drawing.Point(128, 710);
             this.reporter_name.Name = "reporter_name";
             this.reporter_name.Size = new System.Drawing.Size(177, 20);
@@ -439,6 +467,7 @@
             // 
             // label9
             // 
+            this.label9.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(98, 742);
             this.label9.Name = "label9";
@@ -448,6 +477,7 @@
             // 
             // report_date
             // 
+            this.report_date.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.report_date.Enabled = false;
             this.report_date.Location = new System.Drawing.Point(128, 736);
             this.report_date.Name = "report_date";
@@ -456,6 +486,7 @@
             // 
             // create_button
             // 
+            this.create_button.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.create_button.Location = new System.Drawing.Point(322, 713);
             this.create_button.Name = "create_button";
             this.create_button.Size = new System.Drawing.Size(101, 46);
@@ -466,6 +497,7 @@
             // 
             // separatorControl1
             // 
+            this.separatorControl1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.separatorControl1.Location = new System.Drawing.Point(15, 85);
             this.separatorControl1.Name = "separatorControl1";
             this.separatorControl1.Size = new System.Drawing.Size(408, 23);
@@ -473,6 +505,7 @@
             // 
             // separatorControl2
             // 
+            this.separatorControl2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.separatorControl2.Location = new System.Drawing.Point(2, 137);
             this.separatorControl2.Name = "separatorControl2";
             this.separatorControl2.Size = new System.Drawing.Size(421, 23);
@@ -480,6 +513,7 @@
             // 
             // separatorControl3
             // 
+            this.separatorControl3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.separatorControl3.Location = new System.Drawing.Point(12, 656);
             this.separatorControl3.Name = "separatorControl3";
             this.separatorControl3.Size = new System.Drawing.Size(411, 23);
@@ -487,6 +521,7 @@
             // 
             // toggleSwitch1
             // 
+            this.toggleSwitch1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.toggleSwitch1.Location = new System.Drawing.Point(18, 737);
             this.toggleSwitch1.Name = "toggleSwitch1";
             this.toggleSwitch1.Properties.OffText = "Off";
@@ -534,8 +569,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.reportType_box);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Incidents";
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
